@@ -26,7 +26,7 @@ SparkMD5 I kept in a few places (like say, code in md5.end() etc.)
 - Can handle Unicode strings
 - Natively incremental
 - Small code base
-- Fastest MD5 hasher out there so far (see <http://jsperf.com/md5-shootout/44>)
+- Fastest MD5 hasher out there so far (see <http://jsperf.com/md5-shootout/45>)
 - Even faster than versions supporting only simpler ascii strings
 
 ### Usage
