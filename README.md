@@ -18,8 +18,8 @@ not good with naming projects), of course heavily relying on the [original
 code from Joseph Myers](http://www.myersdaily.org/joseph/javascript/md5-text.html),
 (with modifications to incrementally improve performance as per profiling),
 and bits from [SparkMD5](https://github.com/satazor/SparkMD5) -- I started to
-work from SparkMD5 implementation, so there might be bits of code original to
-SparkMD5 code I kept in a few places (like say, code in md5.end()).
+work from SparkMD5 implementation, so there might be code original to
+SparkMD5 I kept in a few places (like say, code in md5.end() etc.)
 
 ### Benefits of YaMd5
 
@@ -29,7 +29,24 @@ SparkMD5 code I kept in a few places (like say, code in md5.end()).
 - Fastest MD5 hasher out there so far (see ,http://jsperf.com/md5-shootout/44>)
 - Even faster than versions supporting only simpler ascii strings
 
-So with that said, I don't know what license covers Joseph Myers' code (need
+### Usage
+
+One pass:
+
+    YaMd5.hashStr('hello\n') === "b1946ac92492d2347c6235b4d2611184"
+
+Incremental:
+
+    var md5Hasher = new YaMd5();
+    md5Hasher.appendStr('hello');
+    md5Hasher.appendStr(' ');
+    md5Hasher.appendStr('world');
+    md5Hasher.appendStr('\n');
+    md5Hasher.end() === '6f5902ac237024bdd0c176cb93063dc4';
+
+### License
+
+I don't know what license covers Joseph Myers' code (need
 to find out). In any case, concerning whatever original code I contributed in
 there:
 
