@@ -17,7 +17,7 @@ So from this point I set out to write my own version, YaMD5 (sorry, I am
 not good with naming projects), of course heavily relying on the original
 code from Joseph Myers [2], and bits from SparkMD5 -- I started to work from
 SparkMD5 implementation, so there might be bits of code original to SparkMD5
-code left in a few places (like say, md5.end()).
+code left in a few places (like say, MD5.end()).
 
 Advantages of YaMD5:
 
@@ -205,7 +205,7 @@ THE SOFTWARE.
         return s.join('');
     };
 
-    var md5 = function() {
+    var MD5 = function() {
         this._dataLength = 0;
         this._state = new Int32Array(4);
         this._buffer = new ArrayBuffer(68);
@@ -217,8 +217,9 @@ THE SOFTWARE.
 
     // Char to code point to to array conversion:
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/charCodeAt#Example.3A_Fixing_charCodeAt_to_handle_non-Basic-Multilingual-Plane_characters_if_their_presence_earlier_in_the_string_is_unknown
-    md5.prototype.appendStr = function(str) {
+    MD5.prototype.appendStr = function(str) {
         var buf8 = this._buffer8;
+        var buf32 = this._buffer32;
         var bufLen = this._bufferLength;
         var code;
         for ( var i = 0; i < str.length; i++ ) {
@@ -243,28 +244,17 @@ THE SOFTWARE.
                 buf8[bufLen++] = (code & 0x3F) | 0x80;
             }
             if ( bufLen >= 64 ) {
-                bufLen = this.processBlock(bufLen);
+                this._dataLength += 64;
+                md5cycle(this._state, buf32);
+                bufLen &= 63;
+                buf32[0] = buf32[16];
             }
         }
         this._bufferLength = bufLen;
         return this;
     };
 
-    md5.prototype.processBlock = function(sz) {
-        this._dataLength += 64;
-        md5cycle(this._state, this._buffer32);
-
-        // Move whatever is left at the end of the buffer to
-        // the start of the buffer
-        this._bufferLength = sz & 63;
-        if ( this._bufferLength > 0 ) {
-            this._buffer32[0] = this._buffer32[16];
-        }
-
-        return this._bufferLength;
-    };
-
-    md5.prototype.start = function() {
+    MD5.prototype.start = function() {
         this._dataLength = 0;
         this._bufferLength = 0;
         var state = this._state;
@@ -275,7 +265,7 @@ THE SOFTWARE.
         return this;
     };
 
-    md5.prototype.end = function(raw) {
+    MD5.prototype.end = function(raw) {
         var bufLen = this._bufferLength;
         this._dataLength += bufLen;
         var buf8 = this._buffer8;
@@ -310,9 +300,9 @@ THE SOFTWARE.
     };
 
     // This permanent instance is to use for one-call hashing
-    var onePassHasher = new md5();
+    var onePassHasher = new MD5();
 
-    md5.hashStr = function(str, raw) {
+    MD5.hashStr = function(str, raw) {
         return onePassHasher
             .start()
             .appendStr(str)
@@ -321,12 +311,12 @@ THE SOFTWARE.
 
     // Self-test
     // In some cases the fast add32 function cannot be used..
-    if ( md5.hashStr('hello') !== '5d41402abc4b2a76b9719d911017c592' ) {
+    if ( MD5.hashStr('hello') !== '5d41402abc4b2a76b9719d911017c592' ) {
         throw 'This javascript engine is a piece of crap. Sorry.';
     }
 
     if ( typeof root === 'object' ) {
-        root.YaMD5 = md5;
+        root.YaMD5 = MD5;
     }
-    return md5;
+    return MD5;
 })(this);
