@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body  {
+    font: 13px mono;
+    }
+.good {
+    color: green;
+    }
+.bad {
+    color: red;
+    }
+</style>
+<script src="../yamd5.js"></script>
+</head>
+<body>
+<h1>YaMD5 test suite</h1>
+<script>
+// Add tests here
+// A test is a pair of strings: one data, the other the hash
+var tests = [
+
+    // from Appendix 5 of http://www.ietf.org/rfc/rfc1321.txt
+    '', 'd41d8cd98f00b204e9800998ecf8427e',
+    'a', '0cc175b9c0f1b6a831c399e269772661',
+    'abc', '900150983cd24fb0d6963f7d28e17f72',
+    'message digest', 'f96b697d7cb7938d525a2f31aaf161d0',
+    'abcdefghijklmnopqrstuvwxyz', 'c3fcd3d76192e4007dfb496cca67e13b',
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789', 'd174ab98d277d9f5a5611c2c9f419d9f',
+    '12345678901234567890123456789012345678901234567890123456789012345678901234567890', '57edf4a22be3c955ac49da2e2107b67a',
+
+    // Unicode strings taken from http://en.wikipedia.org/wiki/List_of_pangrams
+    // Then I ran them through md5sum
+    'Voix ambiguë d\'un cœur qui au zéphyr préfère les jattes de kiwis', 'b69cf1b7b6888f1f8928e2e2b74da8bc',
+    'Жълтата дюля беше щастлива, че пухът, който цъфна, замръзна като гьон', 'd1ea7e7792c50a0386b1064ab220da0c',
+    'Hyvän lorun sangen pieneksi hyödyksi jäi suomen kirjaimet', 'b6071a4fc17e44a7d0246e5b4c939a70',
+    'Ταχίστη αλώπηξ βαφής ψημένη γη, δρασκελίζει υπέρ νωθρού κυνός', '47ee7efa5573066d43ab5f9ae1830cf8',
+    '色は匂へど 散りぬるを 我が世誰ぞ 常ならむ 有為の奥山 今日越えて 浅き夢見じ 酔ひもせず', '7e626d44cd9610f2fef198156730e7d9',
+    'นายสังฆภัณฑ์ เฮงพิทักษ์ฝั่ง ผู้เฒ่าซึ่งมีอาชีพเป็นฅนขายฃวด ถูกตำรวจปฏิบัติการจับฟ้องศาล ฐานลักนาฬิกาคุณหญิงฉัตรชฎา ฌานสมาธิ', 'ae5f9c6b87f4e50e68eb20c10e21733a'
+];
+var templateSuccess = '<span class="good">Success: YaMD5("{{data}}") === "{{hash}}"</span><br>';
+var templateFailure = '<span class="bad">Failure: YaMD5("{{data}}") !== "{{hash}}"</span><br>';
+var data, hash, template, output;
+for ( var i = 0; i < tests.length; i += 2 ) {
+    data = tests[i+0];
+    hash = tests[i+1];
+    if ( YaMD5.hashStr(data) === hash ) {
+        template = templateSuccess;
+    } else {
+        template = templateFailure;
+    }
+    document.write(template.replace('{{data}}', data).replace('{{hash}}', hash));
+}
+</script>
+<p>Project home: <a href="https://github.com/gorhill/yamd5.js">https://github.com/gorhill/yamd5.js</a>
+</p>
+</body>
+</html>
