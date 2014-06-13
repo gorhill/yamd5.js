@@ -38,6 +38,8 @@ One pass:
 Incremental:
 
     var md5Hasher = new YaMD5();
+    ...
+    md5Hasher.start();
     md5Hasher.appendStr('hello');
     md5Hasher.appendStr(' ');
     md5Hasher.appendStr('world');
