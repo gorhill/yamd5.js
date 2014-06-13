@@ -39,8 +39,8 @@ var tests = [
     '7e626d44cd9610f2fef198156730e7d9', '色は匂へど 散りぬるを 我が世誰ぞ 常ならむ 有為の奥山 今日越えて 浅き夢見じ 酔ひもせず',
     'ae5f9c6b87f4e50e68eb20c10e21733a', 'นายสังฆภัณฑ์ เฮงพิทักษ์ฝั่ง ผู้เฒ่าซึ่งมีอาชีพเป็นฅนขายฃวด ถูกตำรวจปฏิบัติการจับฟ้องศาล ฐานลักนาฬิกาคุณหญิงฉัตรชฎา ฌานสมาธิ'
 ];
-var templateSuccess = '<span class="good">Success: "{{hash}}" === YaMD5("{{data}})"</span><br>';
-var templateFailure = '<span class="bad">Failure: "{{hash}}" !== "YaMD5({{data}})"</span><br>';
+var templateSuccess = '<span class="good">Success: "{{hash}}" === YaMD5("{{data}}")</span><br>';
+var templateFailure = '<span class="bad">Failure: "{{hash}}" !== "YaMD5({{data}}")</span><br>';
 var hash, data, template, output;
 for ( var i = 0; i < tests.length; i += 2 ) {
     hash = tests[i+0];
