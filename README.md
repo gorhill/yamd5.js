@@ -2,13 +2,16 @@
 
 I needed an MD5 hasher, and as usual I want small code base, and fast.
 
-Originally found md5-o-matic [1]. It was fast but did not work with Unicode
-string. Also, eventually realized it was really based on code from
-Joseph Myers [2] with no proper credits (not nice).
+Originally found [md5-o-matic](https://github.com/trentmillar/md5-o-matic).
+It was fast but did not work with Unicode string.
+Also, eventually realized it was really based on [code from
+Joseph Myers](http://www.myersdaily.org/joseph/javascript/md5-text.html) with
+no proper credits (not nice).
 
-Then I found SparkMD5 [3], which works with Unicode string, but at a steep
-cost to performance. Also, glancing at the code I saw avoidable redundancies
-causing the code base to be much larger than needed.
+Then I found [SparkMD5](https://github.com/satazor/SparkMD5), which works
+with Unicode string, but at a steep cost to performance. Also, glancing at
+the code I saw avoidable redundancies causing the code base to be much larger
+than needed.
 
 So from this point I set out to write my own version, YaMd5 (sorry, I am
 not good with naming projects), of course heavily relying on the original
@@ -21,13 +24,8 @@ code left in a few places (like say, md5.end()).
 - Can handle Unicode strings
 - Natively incremental
 - Small code base
-- Fastest MD5 hasher out there so far [4]
+- Fastest MD5 hasher out there so far (see ,http://jsperf.com/md5-shootout/44>)
 - Even faster than versions supporting only simpler ascii strings
-
-- [1] <https://github.com/trentmillar/md5-o-matic>
-- [2] <http://www.myersdaily.org/joseph/javascript/md5-text.html>
-- [3] <https://github.com/satazor/SparkMD5>
-- [4] <http://jsperf.com/md5-shootout/44>
 
 So with that said, I don't know what license covers Joseph Myers' code (need
 to find out). In any case, concerning whatever original code I contributed in
