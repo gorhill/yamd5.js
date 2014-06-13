@@ -1,4 +1,4 @@
-### YaMd5 - Yet another MD5 hasher
+### YaMD5 - Yet another MD5 hasher
 
 I needed an MD5 hasher, and as usual I want small code base, and fast.
 
@@ -9,11 +9,11 @@ Joseph Myers](http://www.myersdaily.org/joseph/javascript/md5-text.html) with
 no proper credits (not nice).
 
 Then I found [SparkMD5](https://github.com/satazor/SparkMD5), which works
-with Unicode string, but at a steep cost to performance. Also, glancing at
+with Unicode strings, but at a steep cost to performance. Also, glancing at
 the code I saw avoidable redundancies causing the code base to be much larger
 than needed.
 
-So from this point I set out to write my own version, YaMd5 (sorry, I am
+So from this point I set out to write my own version, YaMD5 (sorry, I am
 not good with naming projects), of course heavily relying on the [original
 code from Joseph Myers](http://www.myersdaily.org/joseph/javascript/md5-text.html),
 (with modifications to incrementally improve performance as per profiling),
@@ -21,7 +21,7 @@ and bits from [SparkMD5](https://github.com/satazor/SparkMD5) -- I started to
 work from SparkMD5 implementation, so there might be code original to
 SparkMD5 I kept in a few places (like say, code in md5.end() etc.)
 
-### Benefits of YaMd5
+### Benefits of YaMD5
 
 - Can handle Unicode strings
 - Natively incremental
@@ -33,11 +33,11 @@ SparkMD5 I kept in a few places (like say, code in md5.end() etc.)
 
 One pass:
 
-    YaMd5.hashStr('hello\n') === "b1946ac92492d2347c6235b4d2611184"
+    YaMD5.hashStr('hello\n') === "b1946ac92492d2347c6235b4d2611184"
 
 Incremental:
 
-    var md5Hasher = new YaMd5();
+    var md5Hasher = new YaMD5();
     md5Hasher.appendStr('hello');
     md5Hasher.appendStr(' ');
     md5Hasher.appendStr('world');

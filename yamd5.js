@@ -1,6 +1,6 @@
 /*******************************************************************************
 
-YaMd5 - Yet another MD5 hasher.
+YaMD5 - Yet another MD5 hasher.
 home: https://github.com/gorhill/yamd5.js
 
 I needed an MD5 hasher, and as usual I want small code base, and fast.
@@ -9,17 +9,17 @@ Originally found md5-o-matic [1]. It was fast but did not work with Unicode
 string. Also, eventually realized it was really based on code from
 Joseph Myers [2] with no proper credits (not nice).
 
-Then I found SparkMD5 [3], which works with Unicode string, but at a steep
+Then I found SparkMD5 [3], which works with Unicode strings, but at a steep
 cost to performance. Also, glancing at the code I saw avoidable redundancies
 causing the code base to be much larger than needed.
 
-So from this point I set out to write my own version, YaMd5 (sorry, I am
+So from this point I set out to write my own version, YaMD5 (sorry, I am
 not good with naming projects), of course heavily relying on the original
 code from Joseph Myers [2], and bits from SparkMD5 -- I started to work from
 SparkMD5 implementation, so there might be bits of code original to SparkMD5
 code left in a few places (like say, md5.end()).
 
-Advantages of YaMd5:
+Advantages of YaMD5:
 
 - Can handle Unicode strings
 - Natively incremental
@@ -212,6 +212,7 @@ THE SOFTWARE.
         this._bufferLength = 0;
         this._buffer8 = new Uint8Array(this._buffer, 0, 68);
         this._buffer32 = new Uint32Array(this._buffer, 0, 17);
+        this.start();
     };
 
     // Char to code point to to array conversion:
@@ -325,7 +326,7 @@ THE SOFTWARE.
     }
 
     if ( typeof root === 'object' ) {
-        root.YaMd5 = md5;
+        root.YaMD5 = md5;
     }
     return md5;
 })(this);
