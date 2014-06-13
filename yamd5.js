@@ -246,7 +246,7 @@ THE SOFTWARE.
             if ( bufLen >= 64 ) {
                 this._dataLength += 64;
                 md5cycle(this._state, buf32);
-                bufLen &= 63;
+                bufLen -= 64;
                 buf32[0] = buf32[16];
             }
         }
