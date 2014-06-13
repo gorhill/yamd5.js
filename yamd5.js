@@ -31,7 +31,7 @@ Advantages of YaMD5:
 [1] https://github.com/trentmillar/md5-o-matic
 [2] http://www.myersdaily.org/joseph/javascript/md5-text.html
 [3] https://github.com/satazor/SparkMD5
-[4] http://jsperf.com/md5-shootout/44
+[4] http://jsperf.com/md5-shootout/45
 
 So with that said, I don't know what license covers Joseph Myers' code (need
 to find out). In any case, concerning whatever original code I contributed in
