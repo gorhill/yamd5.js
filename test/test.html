@@ -39,7 +39,7 @@ var test = function(md5Name, md5Func) {
         'ae5f9c6b87f4e50e68eb20c10e21733a', 'นายสังฆภัณฑ์ เฮงพิทักษ์ฝั่ง ผู้เฒ่าซึ่งมีอาชีพเป็นฅนขายฃวด ถูกตำรวจปฏิบัติการจับฟ้องศาล ฐานลักนาฬิกาคุณหญิงฉัตรชฎา ฌานสมาธิ'
     ];
     var templateSuccess = '<span class="good">Success: "{{hash}}" === md5("{{data}}")</span><br>';
-    var templateFailure = '<span class="bad">Failure: "{{hash}}" !== "md5({{data}}")</span><br>';
+    var templateFailure = '<span class="bad">Failure: "{{hash}}" !== md5("{{data}}")</span><br>';
 
     document.write('<h1>'+ md5Name + '</h1>');
 
