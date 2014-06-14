@@ -5,8 +5,9 @@ I needed an MD5 hasher, and as usual I want small code base, and fast.
 Originally found [md5-o-matic](https://github.com/trentmillar/md5-o-matic).
 It was fast but did not work with Unicode strings.
 Also, I eventually realized it was really based on [code from
-Joseph Myers](http://www.myersdaily.org/joseph/javascript/md5-text.html) with
-no proper credits (not nice).
+Joseph Myers](http://www.myersdaily.org/joseph/javascript/md5-text.html), which
+is itself a javascript adapation of the C language version the reference
+implementation of MD5 in Appendix 3 of RFC 1321.
 
 Then I found [SparkMD5](https://github.com/satazor/SparkMD5), which works
 with Unicode strings, but at a steep cost to performance. Also, glancing at
@@ -26,8 +27,10 @@ SparkMD5 I kept in a few places (like say, code in md5.end() etc.)
 - Can handle Unicode strings
 - Natively incremental
 - Small code base
-- Fastest MD5 hasher out there so far for large input
+- Fastest MD5 hasher out there so far for large input:
     * See <http://jsperf.com/md5-shootout/48>
+    * Notes regarding the above _MD5 shootout_ benchmark:
+        - The _valums MD5_ code fails the test suite.
 - Even faster than versions supporting only simpler ascii strings
 
 ### Usage
