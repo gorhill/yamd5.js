@@ -27,7 +27,7 @@ SparkMD5 I kept in a few places (like say, code in md5.end() etc.)
 - Natively incremental
 - Small code base
 - Fastest MD5 hasher out there so far for large input
-    * See <http://jsperf.com/md5-shootout/45>
+    * See <http://jsperf.com/md5-shootout/48>
 - Even faster than versions supporting only simpler ascii strings
 
 ### Usage
