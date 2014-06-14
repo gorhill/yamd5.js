@@ -4,22 +4,23 @@ I needed an MD5 hasher, and as usual I want small code base, and fast.
 
 Originally found [md5-o-matic](https://github.com/trentmillar/md5-o-matic).
 It was fast but did not work with Unicode strings.
-Also, I eventually realized it was really based on [code from
-Joseph Myers](http://www.myersdaily.org/joseph/javascript/md5-text.html), which
-is itself a javascript adapation of the C language version the reference
-implementation of MD5 in Appendix 3 of RFC 1321.
+Also, I eventually realized it was really based on [code from 
+Joseph Myers](http://www.myersdaily.org/joseph/javascript/md5-text.html), which 
+is itself a javascript adapation of the C language version the reference 
+implementation of MD5 in Appendix 3 of 
+[RFC 1321](http://www.rfc-editor.org/rfc/rfc1321.txt).
 
 Then I found [SparkMD5](https://github.com/satazor/SparkMD5), which works
 with Unicode strings, but at a steep cost to performance. Also, glancing at
 the code I saw avoidable redundancies causing the code base to be much larger
 than needed.
 
-So from this point I set out to write my own version, YaMD5 (sorry, I am
-not good with naming projects), of course heavily relying on the [original
-code from Joseph Myers](http://www.myersdaily.org/joseph/javascript/md5-text.html),
-(with modifications to incrementally improve performance as per profiling),
-and bits from [SparkMD5](https://github.com/satazor/SparkMD5) -- I started to
-work from SparkMD5 implementation, so there might be code original to
+So from this point I set out to write my own version, YaMD5 (sorry, I am 
+not good with naming projects), of course heavily relying on the [original 
+code from Joseph Myers](http://www.myersdaily.org/joseph/javascript/md5-text.html), 
+(with modifications to incrementally improve performance as per profiling), 
+and bits from [SparkMD5](https://github.com/satazor/SparkMD5) -- I started to 
+work from SparkMD5 implementation, so there might be code original to 
 SparkMD5 I kept in a few places (like say, code in md5.end() etc.)
 
 ### Benefits of YaMD5
