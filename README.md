@@ -31,7 +31,12 @@ SparkMD5 I kept in a few places (like say, code in md5.end() etc.)
 - Fastest MD5 hasher out there so far for large input:
     * See <http://jsperf.com/md5-shootout/48>
     * Notes regarding the above _MD5 shootout_ benchmark:
-        - The _valums MD5_ code fails the test suite.
+        - Only the following implementations succeed with Unicode strings:
+            * YaMD5
+            * [SparkMD5](https://github.com/satazor/SparkMD5)
+            * [Paul Johnston's MD5](http://pajhome.org.uk/crypt/md5/md5.html)
+            * [js-crypto's MD5](https://github.com/jbt/js-crypto)
+        - _valums MD5_ code fails both ASCII and Unicode strings: **Do not use**.
 - Even faster than versions supporting only simpler ascii strings
 
 ### Usage

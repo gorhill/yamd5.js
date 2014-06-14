@@ -6,8 +6,8 @@ home: https://github.com/gorhill/yamd5.js
 I needed an MD5 hasher, and as usual I want small code base, and fast.
 
 Originally found md5-o-matic [1]. It was fast but did not work with Unicode
-string. Also, eventually realized it was really based on code from
-Joseph Myers [2] with no proper credits (not nice).
+strings. Also, eventually realized it was really based on code from
+Joseph Myers [2] with no proper credits given (not nice).
 
 Then I found SparkMD5 [3], which works with Unicode strings, but at a steep
 cost to performance. Also, glancing at the code I saw avoidable redundancies

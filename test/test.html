@@ -12,48 +12,88 @@ body  {
     color: red;
     }
 </style>
-<script src="../yamd5.js"></script>
 </head>
 <body>
-<h1>YaMD5 test suite</h1>
 <script>
-// Add tests here
-// A test is a pair of strings: hash then data
-var tests = [
+var test = function(md5Name, md5Func) {
+    // Add tests here
+    // A test is a pair of strings: hash then data
+    var tests = [
 
-    // from Appendix 5 of http://www.ietf.org/rfc/rfc1321.txt
-    'd41d8cd98f00b204e9800998ecf8427e', '',
-    '0cc175b9c0f1b6a831c399e269772661', 'a',
-    '900150983cd24fb0d6963f7d28e17f72', 'abc',
-    'f96b697d7cb7938d525a2f31aaf161d0', 'message digest',
-    'c3fcd3d76192e4007dfb496cca67e13b', 'abcdefghijklmnopqrstuvwxyz',
-    'd174ab98d277d9f5a5611c2c9f419d9f', 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
-    '57edf4a22be3c955ac49da2e2107b67a', '12345678901234567890123456789012345678901234567890123456789012345678901234567890',
+        // from Appendix 5 of http://www.ietf.org/rfc/rfc1321.txt
+        'd41d8cd98f00b204e9800998ecf8427e', '',
+        '0cc175b9c0f1b6a831c399e269772661', 'a',
+        '900150983cd24fb0d6963f7d28e17f72', 'abc',
+        'f96b697d7cb7938d525a2f31aaf161d0', 'message digest',
+        'c3fcd3d76192e4007dfb496cca67e13b', 'abcdefghijklmnopqrstuvwxyz',
+        'd174ab98d277d9f5a5611c2c9f419d9f', 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
+        '57edf4a22be3c955ac49da2e2107b67a', '12345678901234567890123456789012345678901234567890123456789012345678901234567890',
 
-    // Unicode strings taken from http://en.wikipedia.org/wiki/List_of_pangrams
-    // Then I ran them through md5sum
-    'b69cf1b7b6888f1f8928e2e2b74da8bc', 'Voix ambiguë d\'un cœur qui au zéphyr préfère les jattes de kiwis',
-    'd1ea7e7792c50a0386b1064ab220da0c', 'Жълтата дюля беше щастлива, че пухът, който цъфна, замръзна като гьон',
-    'b6071a4fc17e44a7d0246e5b4c939a70', 'Hyvän lorun sangen pieneksi hyödyksi jäi suomen kirjaimet',
-    '47ee7efa5573066d43ab5f9ae1830cf8', 'Ταχίστη αλώπηξ βαφής ψημένη γη, δρασκελίζει υπέρ νωθρού κυνός',
-    '7e626d44cd9610f2fef198156730e7d9', '色は匂へど 散りぬるを 我が世誰ぞ 常ならむ 有為の奥山 今日越えて 浅き夢見じ 酔ひもせず',
-    'ae5f9c6b87f4e50e68eb20c10e21733a', 'นายสังฆภัณฑ์ เฮงพิทักษ์ฝั่ง ผู้เฒ่าซึ่งมีอาชีพเป็นฅนขายฃวด ถูกตำรวจปฏิบัติการจับฟ้องศาล ฐานลักนาฬิกาคุณหญิงฉัตรชฎา ฌานสมาธิ'
-];
-var templateSuccess = '<span class="good">Success: "{{hash}}" === YaMD5("{{data}}")</span><br>';
-var templateFailure = '<span class="bad">Failure: "{{hash}}" !== "YaMD5({{data}}")</span><br>';
-var hash, data, template, output;
-for ( var i = 0; i < tests.length; i += 2 ) {
-    hash = tests[i+0];
-    data = tests[i+1];
-    if ( YaMD5.hashStr(data) === hash ) {
-        template = templateSuccess;
-    } else {
-        template = templateFailure;
+        // Unicode strings taken from http://en.wikipedia.org/wiki/List_of_pangrams
+        // Then I ran them through md5sum
+        'b69cf1b7b6888f1f8928e2e2b74da8bc', 'Voix ambiguë d\'un cœur qui au zéphyr préfère les jattes de kiwis',
+        'd1ea7e7792c50a0386b1064ab220da0c', 'Жълтата дюля беше щастлива, че пухът, който цъфна, замръзна като гьон',
+        'b6071a4fc17e44a7d0246e5b4c939a70', 'Hyvän lorun sangen pieneksi hyödyksi jäi suomen kirjaimet',
+        '47ee7efa5573066d43ab5f9ae1830cf8', 'Ταχίστη αλώπηξ βαφής ψημένη γη, δρασκελίζει υπέρ νωθρού κυνός',
+        '7e626d44cd9610f2fef198156730e7d9', '色は匂へど 散りぬるを 我が世誰ぞ 常ならむ 有為の奥山 今日越えて 浅き夢見じ 酔ひもせず',
+        'ae5f9c6b87f4e50e68eb20c10e21733a', 'นายสังฆภัณฑ์ เฮงพิทักษ์ฝั่ง ผู้เฒ่าซึ่งมีอาชีพเป็นฅนขายฃวด ถูกตำรวจปฏิบัติการจับฟ้องศาล ฐานลักนาฬิกาคุณหญิงฉัตรชฎา ฌานสมาธิ'
+    ];
+    var templateSuccess = '<span class="good">Success: "{{hash}}" === md5("{{data}}")</span><br>';
+    var templateFailure = '<span class="bad">Failure: "{{hash}}" !== "md5({{data}}")</span><br>';
+
+    document.write('<h1>'+ md5Name + '</h1>');
+
+    var hash, data, template, output;
+    for ( var i = 0; i < tests.length; i += 2 ) {
+        hash = tests[i+0];
+        data = tests[i+1];
+        if ( md5Func(data) === hash ) {
+            template = templateSuccess;
+        } else {
+            template = templateFailure;
+        }
+        document.write(template.replace('{{data}}', data).replace('{{hash}}', hash));
     }
-    document.write(template.replace('{{data}}', data).replace('{{hash}}', hash));
-}
+};
+
+var module = module || {};
 </script>
-<p>Project home: <a href="https://github.com/gorhill/yamd5.js">https://github.com/gorhill/yamd5.js</a>
-</p>
+
+<script src="../yamd5.js"></script>
+<script>test('github.com/gorhill/yamd5.js', YaMD5.hashStr);</script>
+<p>Project home: <a href="https://github.com/gorhill/yamd5.js">https://github.com/gorhill/yamd5.js</a></p>
+
+<script src="./lib/satazor-md5.js"></script>
+<script>test('github.com/satazor/SparkMD5', SparkMD5.hash);</script>
+<p>Project home: <a href="https://github.com/satazor/SparkMD5">https://github.com/satazor/SparkMD5</a></p>
+
+<script src="./lib/paj-md5.js"></script>
+<script>test('Paul Johnston', pajMD5);</script>
+<p>Project home: <a href="http://pajhome.org.uk/crypt/md5/md5.html">http://pajhome.org.uk/crypt/md5/md5.html</a></p>
+
+<script src="./lib/jbt-md5.js"></script>
+<script>test('github.com/jbt/js-crypto', md5);</script>
+<p>Project home: <a href="https://github.com/jbt/js-crypto">https://github.com/jbt/js-crypto</a></p>
+
+<script src="./lib/izumo-md5.js"></script>
+<script>test('Masanao Izumo', izumoMD5);</script>
+<p>Project home: <a href="http://www.onicos.com/staff/iz/amuse/javascript/expert/md5.txt">http://www.onicos.com/staff/iz/amuse/javascript/expert/md5.txt</a></p>
+
+<script src="./lib/jkm-md5.js"></script>
+<script>test('Joseph Myers', jkmMD5);</script>
+<p>Project home: <a href="http://www.myersdaily.org/joseph/javascript/md5-text.html">http://www.myersdaily.org/joseph/javascript/md5-text.html</a></p>
+
+<script src="https://rawgit.com/trentmillar/md5-o-matic/master/lib/md5omatic.js"></script>
+<script>test('github.com/trentmillar/md5-o-matic', module.exports);</script>
+<p>Project home: <a href="https://github.com/trentmillar/md5-o-matic">https://github.com/trentmillar/md5-o-matic</a></p>
+
+<script src="./lib/ireal-md5.js"></script>
+<script>test('github.com/iReal/FastMD5', md5);</script>
+<p>Project home: <a href="https://github.com/iReal/FastMD5">https://github.com/iReal/FastMD5</a></p>
+
+<script src="./lib/valums-md5.js"></script>
+<script>test('valums', V.Security.md5);</script>
+<p>Code taken from: <a href="http://jsperf.com/md5-shootout/48">http://jsperf.com/md5-shootout/48</a></p>
+
 </body>
 </html>
