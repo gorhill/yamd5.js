@@ -13,7 +13,7 @@ implementation of MD5 in Appendix 3 of
 Then I found [SparkMD5](https://github.com/satazor/SparkMD5), which works
 with Unicode strings, but at a steep cost to performance on large input strings. 
 Also, glancing at the code I saw avoidable redundancies causing the code base 
-to be much larger than needed.
+to be larger than needed.
 
 So from this point I set out to write my own version, YaMD5 (sorry, I am 
 not good with naming projects), of course heavily relying on the [original 
