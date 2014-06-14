@@ -203,6 +203,9 @@ THE SOFTWARE.
         this.start();
     };
 
+    MD5.prototype._stateIdentity = new Int32Array([1732584193, -271733879, -1732584194, 271733878]);
+    MD5.prototype._buffer32Identity = new Int32Array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+
     // Char to code point to to array conversion:
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/charCodeAt#Example.3A_Fixing_charCodeAt_to_handle_non-Basic-Multilingual-Plane_characters_if_their_presence_earlier_in_the_string_is_unknown
     MD5.prototype.appendStr = function(str) {
@@ -245,11 +248,7 @@ THE SOFTWARE.
     MD5.prototype.start = function() {
         this._dataLength = 0;
         this._bufferLength = 0;
-        var state = this._state;
-        state[0] = 1732584193;
-        state[1] = -271733879;
-        state[2] = -1732584194;
-        state[3] = 271733878;
+        this._state.set(this._stateIdentity);
         return this;
     };
 
@@ -260,15 +259,11 @@ THE SOFTWARE.
         buf8[bufLen] = 0x80;
         buf8[bufLen+1] =  buf8[bufLen+2] =  buf8[bufLen+3] = 0;
         var buf32 = this._buffer32;
-        var i;
-        for ( i = (bufLen >> 2) + 1; i < 16; i++ ) {
-            buf32[i] = 0;
-        }
+        var i = (bufLen >> 2) + 1;
+        buf32.set(this._buffer32Identity.subarray(i), i);
         if (bufLen > 55) {
             md5cycle(this._state, buf32);
-            for ( i = 0; i < 16; i++ ) {
-                buf32[i] = 0;
-            }
+            buf32.set(this._buffer32Identity);
         }
         // Do the final computation based on the tail and length
         // Beware that the final length may not fit in 32 bits so we take care of that
@@ -300,7 +295,7 @@ THE SOFTWARE.
     // Self-test
     // In some cases the fast add32 function cannot be used..
     if ( MD5.hashStr('hello') !== '5d41402abc4b2a76b9719d911017c592' ) {
-        throw 'This javascript engine does not support YaMD5. Sorry.';
+        console.error('YaMD5> this javascript engine does not support YaMD5. Sorry.');
     }
 
     if ( typeof root === 'object' ) {
