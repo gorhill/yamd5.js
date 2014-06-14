@@ -176,21 +176,24 @@ THE SOFTWARE.
         x[3] = (d + x[3]) | 0;
     };
 
+    var hexChars = '0123456789abcdef';
+    var hexOut = [];
+
     var hex = function(x) {
-        var hex_chr = '0123456789abcdef';
-        var s = [];
-        var n, offset;
-        for (var i = 0; i < x.length; i++) {
+        var hc = hexChars;
+        var ho = hexOut;
+        var n, offset, j;
+        for (var i = 0; i < 4; i++) {
             offset = i * 8;
             n = x[i];
-            for ( var j = 0; j < 8; j += 2 ) {
-                s[offset+1+j] = hex_chr.charAt(n & 0x0F);
+            for ( j = 0; j < 8; j += 2 ) {
+                ho[offset+1+j] = hc.charAt(n & 0x0F);
                 n >>>= 4;
-                s[offset+0+j] = hex_chr.charAt(n & 0x0F);
+                ho[offset+0+j] = hc.charAt(n & 0x0F);
                 n >>>= 4;
             }
         }
-        return s.join('');
+        return ho.join('');
     };
 
     var MD5 = function() {
@@ -203,8 +206,8 @@ THE SOFTWARE.
         this.start();
     };
 
-    MD5.prototype._stateIdentity = new Int32Array([1732584193, -271733879, -1732584194, 271733878]);
-    MD5.prototype._buffer32Identity = new Int32Array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+    var stateIdentity = new Int32Array([1732584193, -271733879, -1732584194, 271733878]);
+    var buffer32Identity = new Int32Array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
 
     // Char to code point to to array conversion:
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/charCodeAt#Example.3A_Fixing_charCodeAt_to_handle_non-Basic-Multilingual-Plane_characters_if_their_presence_earlier_in_the_string_is_unknown
@@ -248,7 +251,7 @@ THE SOFTWARE.
     MD5.prototype.start = function() {
         this._dataLength = 0;
         this._bufferLength = 0;
-        this._state.set(this._stateIdentity);
+        this._state.set(stateIdentity);
         return this;
     };
 
@@ -260,10 +263,10 @@ THE SOFTWARE.
         buf8[bufLen+1] =  buf8[bufLen+2] =  buf8[bufLen+3] = 0;
         var buf32 = this._buffer32;
         var i = (bufLen >> 2) + 1;
-        buf32.set(this._buffer32Identity.subarray(i), i);
+        buf32.set(buffer32Identity.subarray(i), i);
         if (bufLen > 55) {
             md5cycle(this._state, buf32);
-            buf32.set(this._buffer32Identity);
+            buf32.set(buffer32Identity);
         }
         // Do the final computation based on the tail and length
         // Beware that the final length may not fit in 32 bits so we take care of that
