@@ -40,7 +40,7 @@ SparkMD5 I kept in a few places (like say, code in md5.end() etc.)
             * [Masanao Izumo's MD5 ("MD5_hexhash")](http://www.onicos.com/staff/iz/amuse/javascript/expert/md5.txt)
             * [Joseph Myers's MD5 ("jkm MD5"](http://www.myersdaily.org/joseph/javascript/md5-text.html)
             * [Trent Millar's MD5 ("MD5-o-matic")](https://github.com/trentmillar/md5-o-matic)
-            * [iReal's MD5](https://github.com/iReal/FastMD5)
+            * [iReal's MD5 ("FastMD5")](https://github.com/iReal/FastMD5)
         - _valums MD5_ code fails both ASCII and Unicode strings: **Do not use**.
 
 ### Usage
