@@ -248,6 +248,27 @@ THE SOFTWARE.
         return this;
     };
 
+    MD5.prototype.appendAsciiStr = function(str) {
+        var buf8 = this._buffer8;
+        var buf32 = this._buffer32;
+        var bufLen = this._bufferLength;
+        var i, j = 0;
+        for (;;) {
+            i = Math.min(str.length-j, 64-bufLen);
+            while ( i-- ) {
+                buf8[bufLen++] = str.charCodeAt(j++);
+            }
+            if ( bufLen < 64 ) {
+                break;
+            }
+            this._dataLength += 64;
+            md5cycle(this._state, buf32);
+            bufLen = 0;
+        }
+        this._bufferLength = bufLen;
+        return this;
+    };
+
     MD5.prototype.start = function() {
         this._dataLength = 0;
         this._bufferLength = 0;
@@ -292,6 +313,13 @@ THE SOFTWARE.
         return onePassHasher
             .start()
             .appendStr(str)
+            .end(raw);
+    };
+
+    MD5.hashAsciiStr = function(str, raw) {
+        return onePassHasher
+            .start()
+            .appendAsciiStr(str)
             .end(raw);
     };
 
