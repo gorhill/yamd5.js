@@ -88,7 +88,7 @@ var module = module || {};
 <p>Project home: <a href="https://github.com/trentmillar/md5-o-matic">https://github.com/trentmillar/md5-o-matic</a></p>
 
 <script src="./lib/ireal-md5.js"></script>
-<script>test('github.com/iReal/FastMD5', md5);</script>
+<script>test('github.com/iReal/FastMD5', function(s) { return md5(s, true); });</script>
 <p>Project home: <a href="https://github.com/iReal/FastMD5">https://github.com/iReal/FastMD5</a></p>
 
 <script src="./lib/valums-md5.js"></script>
