@@ -48,7 +48,7 @@ SparkMD5 I kept in a few places (like say, code in md5.end() etc.)
 
 One pass:
 
-    YaMD5.hashStr('hello\n') === "b1946ac92492d2347c6235b4d2611184"
+    YaMD5.hashStr('hello world\n') === "6f5902ac237024bdd0c176cb93063dc4"
 
 Incremental:
 
